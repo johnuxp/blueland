@@ -3,7 +3,7 @@
 
 name: blueland
 description: Custom Bluefin with Hyprland configuration alongside GNOME
-base-image: ghcr.io/ublue-os/bluefin-main
+base-image: ghcr.io/ublue-os/bluefin-dx:stable
 image-version: latest
 
 modules:
