@@ -69,7 +69,7 @@ modules:
       #- wl-screenrec
       
       # Color & Theme Tools
-      - pywal
+      #- pywal
       #- python3-pywal
       
       # File Managers
