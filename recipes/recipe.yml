@@ -57,7 +57,7 @@ modules:
       #- wallust
       
       # Screen Locking & Idle
-      - swaylock
+      #- swaylock  #removed because swaylock-effects is more feature-rich fork
       - swaylock-effects
       - swayidle
       
@@ -126,7 +126,7 @@ modules:
       
       # Archive Tools
       - file-roller
-      - p7zip
+      #- p7zip  #already included in bluefin, created dependency conflict, not nescessary
       - unzip
       - unrar
       
