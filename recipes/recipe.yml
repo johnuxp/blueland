@@ -20,7 +20,7 @@ modules:
       - hypridle
       - hyprpicker
       - hyprcursor
-      
+      - hyprland-qtutils
       
       # Wayland essentials
       - xdg-desktop-portal-hyprland
@@ -165,11 +165,12 @@ modules:
       
       # SDDM Display Manager (better for Hyprland than GDM)
       - sddm
-      #- sddm-breeze
+      - sddm-breeze
       #- sddm-kcm
       - qt5-qtgraphicaleffects
       - qt5-qtquickcontrols
       - qt5-qtquickcontrols2
+      - qt5-qtsvg  
 
     #remove:
       #- gdm
