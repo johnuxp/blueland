@@ -161,6 +161,7 @@ modules:
       - ydotool
       - nm-connection-editor
       - emacs
+      - kde-connect 
       
       # SDDM Display Manager (better for Hyprland than GDM)
       - sddm
