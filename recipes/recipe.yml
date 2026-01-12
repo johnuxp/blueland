@@ -20,7 +20,7 @@ modules:
       - hypridle
       - hyprpicker
       - hyprcursor
-      - emacs
+      
       
       # Wayland essentials
       - xdg-desktop-portal-hyprland
@@ -122,7 +122,8 @@ modules:
       - viewnior
       
       # Media Player
-      - mpv
+      #- mpv
+      - vlc
       
       # Archive Tools
       - file-roller
@@ -159,14 +160,24 @@ modules:
       - wtype
       - ydotool
       - nm-connection-editor
+      - emacs
       
       # SDDM Display Manager (better for Hyprland than GDM)
       - sddm
-      - sddm-breeze
-      - sddm-kcm
+      #- sddm-breeze
+      #- sddm-kcm
       - qt5-qtgraphicaleffects
       - qt5-qtquickcontrols
       - qt5-qtquickcontrols2
+
+    remove:
+      - gdm
+      - helvum
+      - rygel
+      - rygel-preferences
+      - calf
+      - easyeffects
+      - foot
 
   - type: fonts
     fonts:
