@@ -97,7 +97,7 @@ modules:
       - playerctl
       #- wireplumber
       #- pipewire
-      - easyeffects
+      #- easyeffects
       
       # Network
       - network-manager-applet
@@ -175,7 +175,7 @@ modules:
       - helvum
       - rygel
       - rygel-preferences
-      - calf
+      #- calf -seems to be dependency of some other program I installed above
       - easyeffects
       - foot
 
