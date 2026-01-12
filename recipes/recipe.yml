@@ -4,7 +4,7 @@
 name: blueland
 description: Custom Bluefin with Hyprland configuration alongside GNOME
 base-image: ghcr.io/ublue-os/bluefin-dx
-image-version: 42
+image-version: 43
 
 modules:
   # Install comprehensive Hyprland ecosystem
@@ -20,7 +20,7 @@ modules:
       - hypridle
       - hyprpicker
       - hyprcursor
-      - hyprland-qtutils
+      #- hyprland-qtutils - deprecated
       
       # Wayland essentials
       - xdg-desktop-portal-hyprland
