@@ -31,7 +31,7 @@ modules:
       
       # Terminal & Shell
       - kitty
-      - foot
+      #- foot
       - zsh
       - fish
       - fastfetch
@@ -176,8 +176,8 @@ modules:
       - rygel
       - rygel-preferences
       #- calf -seems to be dependency of some other program I installed above
-      - easyeffects
-      - foot
+      #- easyeffects
+      #- foot
 
   - type: fonts
     fonts:
