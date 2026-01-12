@@ -172,9 +172,9 @@ modules:
       - qt5-qtquickcontrols2
 
     remove:
-      - gdm
+      #- gdm
       #- helvum
-      #- rygel
+      #- 2
       #- rygel-preferences
       #- calf -seems to be dependency of some other program I installed above
       #- easyeffects
