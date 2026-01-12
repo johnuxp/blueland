@@ -20,7 +20,7 @@ modules:
       - hypridle
       - hyprpicker
       - hyprcursor
-      #- hyprland-qtutils - deprecated
+      #- hyprland-qtutils  # deprecated
       
       # Wayland essentials
       - xdg-desktop-portal-hyprland
@@ -90,6 +90,7 @@ modules:
       - wlsunset
       - gammastep
       - emacs
+      - quickshell
       
       # Audio
       - pavucontrol
@@ -163,14 +164,18 @@ modules:
       - emacs
       - kde-connect 
       
-      # SDDM Display Manager (better for Hyprland than GDM)
-      - sddm
-      - sddm-breeze
+      # Display Manager (better for Hyprland than GDM)
+      #- sddm
+      #- sddm-breeze
       #- sddm-kcm
       - qt5-qtgraphicaleffects
       - qt5-qtquickcontrols
       - qt5-qtquickcontrols2
-      - qt5-qtsvg  
+      - qt5-qtsvg
+      #- lightdm #not wayland native afaik
+      #- lightdm-slick-greeter  
+      - greetd
+      - greetd-tuigreet
 
     #remove:
       #- gdm
@@ -202,10 +207,11 @@ modules:
   - type: systemd
     system:
       enabled:
-        - sddm.service
+        - greetd.service
         - bluetooth.service  
       disabled:
         - gdm.service
+        - sddm.service
 
   # Add custom scripts
   - type: script
@@ -231,17 +237,40 @@ modules:
         # Configure SDDM to use Wayland by default
         # Note: In BlueBuild, it is often better to write to /usr/etc/
         # to ensure it seeds /etc correctly on Atomic systems.
-        mkdir -p /etc/sddm.conf.d
-        cat > /etc/sddm.conf.d/wayland.conf << 'EOF'
-        [General]
-        DisplayServer=wayland
-        GreeterEnvironment=QT_WAYLAND_SHELL_INTEGRATION=layer-shell
+        # mkdir -p /etc/sddm.conf.d
+        # cat > /etc/sddm.conf.d/wayland.conf << 'EOF'
+        # [General]
+        # DisplayServer=wayland
+        # GreeterEnvironment=QT_WAYLAND_SHELL_INTEGRATION=layer-shell
 
-        [Wayland]
-        CompositorCommand=Hyprland
-        EOF
+        # [Wayland]
+        # CompositorCommand=Hyprland
+        # EOF
 
         # Fix Polkit GNOME path for autostart
         if [ -f /usr/share/applications/polkit-gnome-authentication-agent-1.desktop ]; then
           sed -i 's|Exec=.*|Exec=/usr/libexec/polkit-gnome-authentication-agent-1|' /usr/share/applications/polkit-gnome-authentication-agent-1.desktop
         fi
+      - |
+        # Configure greetd with tuigreet
+        mkdir -p /etc/greetd
+        cat > /etc/greetd/config.toml << 'EOF'
+        [terminal]
+        vt = 1
+        
+        [default_session]
+        command = "tuigreet --time --remember --remember-session --greeting 'Welcome to Blueland' --sessions /usr/share/wayland-sessions:/usr/share/xsessions"
+        user = "greeter"
+        EOF
+        
+        # Ensure Hyprland session file exists
+        mkdir -p /usr/share/wayland-sessions
+        cat > /usr/share/wayland-sessions/hyprland.desktop << 'EOF'
+        [Desktop Entry]
+        Name=Hyprland
+        Comment=An intelligent dynamic tiling Wayland compositor
+        Exec=Hyprland
+        Type=Application
+        EOF
+        
+        chmod 644 /usr/share/wayland-sessions/hyprland.desktop
