@@ -174,8 +174,8 @@ modules:
     remove:
       - gdm
       #- helvum
-      - rygel
-      - rygel-preferences
+      #- rygel
+      #- rygel-preferences
       #- calf -seems to be dependency of some other program I installed above
       #- easyeffects
       #- foot
