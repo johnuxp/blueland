@@ -171,7 +171,7 @@ modules:
       - qt5-qtquickcontrols
       - qt5-qtquickcontrols2
 
-    remove:
+    #remove:
       #- gdm
       #- helvum
       #- 2
