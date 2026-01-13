@@ -217,53 +217,19 @@ modules:
   - type: script
     snippets:
       - |
-        # Ensure the directory for session files exists
-        mkdir -p /usr/share/wayland-sessions
-
-        # Create Hyprland desktop entry if it does not exist
-        if [ ! -f /usr/share/wayland-sessions/hyprland.desktop ]; then
-          cat > /usr/share/wayland-sessions/hyprland.desktop << 'EOF'
-        [Desktop Entry]
-        Name=Hyprland
-        Comment=An intelligent dynamic tiling Wayland compositor
-        Exec=Hyprland
-        Type=Application
-        EOF
+        # Create greeter user and group
+        if ! getent group greeter > /dev/null 2>&1; then
+          groupadd -r greeter
         fi
-
-        # Set proper permissions for the session file
-        chmod 644 /usr/share/wayland-sessions/hyprland.desktop
-
-        # Configure SDDM to use Wayland by default
-        # Note: In BlueBuild, it is often better to write to /usr/etc/
-        # to ensure it seeds /etc correctly on Atomic systems.
-        # mkdir -p /etc/sddm.conf.d
-        # cat > /etc/sddm.conf.d/wayland.conf << 'EOF'
-        # [General]
-        # DisplayServer=wayland
-        # GreeterEnvironment=QT_WAYLAND_SHELL_INTEGRATION=layer-shell
-
-        # [Wayland]
-        # CompositorCommand=Hyprland
-        # EOF
-
-        # Fix Polkit GNOME path for autostart
-        if [ -f /usr/share/applications/polkit-gnome-authentication-agent-1.desktop ]; then
-          sed -i 's|Exec=.*|Exec=/usr/libexec/polkit-gnome-authentication-agent-1|' /usr/share/applications/polkit-gnome-authentication-agent-1.desktop
+        if ! getent passwd greeter > /dev/null 2>&1; then
+          useradd -r -g greeter -d /var/lib/greetd -s /sbin/nologin greeter
         fi
+        mkdir -p /var/lib/greetd
+        chown -R greeter:greeter /var/lib/greetd
+        chmod 755 /var/lib/greetd
+        
       - |
-        # Configure greetd with tuigreet
-        mkdir -p /etc/greetd
-        cat > /etc/greetd/config.toml << 'EOF'
-        [terminal]
-        vt = 1
-        
-        [default_session]
-        command = "tuigreet --time --remember --remember-session --greeting 'Welcome to Blueland' --sessions /usr/share/wayland-sessions:/usr/share/xsessions"
-        user = "greeter"
-        EOF
-        
-        # Ensure Hyprland session file exists
+        # Ensure Hyprland session file exists with proper permissions
         mkdir -p /usr/share/wayland-sessions
         cat > /usr/share/wayland-sessions/hyprland.desktop << 'EOF'
         [Desktop Entry]
@@ -272,5 +238,26 @@ modules:
         Exec=Hyprland
         Type=Application
         EOF
-        
+        chmod 755 /usr/share/wayland-sessions
         chmod 644 /usr/share/wayland-sessions/hyprland.desktop
+        
+      - |
+        # Configure greetd with tuigreet
+        mkdir -p /etc/greetd
+        cat > /etc/greetd/config.toml << 'EOF'
+        [terminal]
+        vt = 1
+        
+        [default_session]
+        command = "tuigreet --time --remember --remember-session --greeting 'Welcome to Blueland' --sessions /usr/share/wayland-sessions"
+        user = "greeter"
+        EOF
+        chmod 644 /etc/greetd/config.toml
+        
+      - |
+        # Ensure greetd has proper permissions
+        chmod 755 /etc/greetd
+        
+        # Create a fallback session if needed
+        mkdir -p /usr/share/xsessions
+        chmod 755 /usr/share/xsessions
