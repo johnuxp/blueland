@@ -207,29 +207,16 @@ modules:
   - type: systemd
     system:
       enabled:
-        - greetd.service
+        - gdm.service
         - bluetooth.service  
       disabled:
-        - gdm.service
         - sddm.service
 
   # Add custom scripts
   - type: script
     snippets:
       - |
-        # Create greeter user and group
-        if ! getent group greeter > /dev/null 2>&1; then
-          groupadd -r greeter
-        fi
-        if ! getent passwd greeter > /dev/null 2>&1; then
-          useradd -r -g greeter -d /var/lib/greetd -s /sbin/nologin greeter
-        fi
-        mkdir -p /var/lib/greetd
-        chown -R greeter:greeter /var/lib/greetd
-        chmod 755 /var/lib/greetd
-        
-      - |
-        # Ensure Hyprland session file exists with proper permissions
+        # Create Hyprland session file for GDM
         mkdir -p /usr/share/wayland-sessions
         cat > /usr/share/wayland-sessions/hyprland.desktop << 'EOF'
         [Desktop Entry]
@@ -237,27 +224,6 @@ modules:
         Comment=An intelligent dynamic tiling Wayland compositor
         Exec=Hyprland
         Type=Application
+        DesktopNames=Hyprland
         EOF
-        chmod 755 /usr/share/wayland-sessions
         chmod 644 /usr/share/wayland-sessions/hyprland.desktop
-        
-      - |
-        # Configure greetd with tuigreet
-        mkdir -p /etc/greetd
-        cat > /etc/greetd/config.toml << 'EOF'
-        [terminal]
-        vt = 1
-        
-        [default_session]
-        command = "tuigreet --time --remember --remember-session --greeting 'Welcome to Blueland' --sessions /usr/share/wayland-sessions"
-        user = "greeter"
-        EOF
-        chmod 644 /etc/greetd/config.toml
-        
-      - |
-        # Ensure greetd has proper permissions
-        chmod 755 /etc/greetd
-        
-        # Create a fallback session if needed
-        mkdir -p /usr/share/xsessions
-        chmod 755 /usr/share/xsessions
