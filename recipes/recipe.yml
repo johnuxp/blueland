@@ -126,7 +126,7 @@ modules:
       
       # Media Player
       #- mpv
-      - vlc
+      - vlc   #consider removing in favor of flatpak
       
       # Archive Tools
       - file-roller
@@ -187,8 +187,7 @@ modules:
       #- calf -seems to be dependency of some other program I installed above
       #- easyeffects
       #- foot
-    skip-unavailable: true
-    
+
   - type: fonts
     fonts:
       nerd-fonts:
