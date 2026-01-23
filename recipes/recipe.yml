@@ -126,7 +126,7 @@ modules:
       
       # Media Player
       #- mpv
-      - vlc   #consider removing in favor of flatpak
+      #- vlc   #consider removing in favor of flatpak
       
       # Archive Tools
       - file-roller
