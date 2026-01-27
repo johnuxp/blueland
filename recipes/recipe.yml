@@ -91,7 +91,7 @@ modules:
       - wlr-randr
       - wlsunset
       - gammastep
-      - emacs
+      #- emacs
       
       
       # Audio
