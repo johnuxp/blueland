@@ -165,6 +165,7 @@ modules:
       - nm-connection-editor
       - emacs
       - kde-connect 
+      - texlive-scheme-full 
       
       # Display Manager (better for Hyprland than GDM)
       #- sddm
