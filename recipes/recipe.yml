@@ -34,7 +34,7 @@ modules:
       # Terminal & Shell
       - kitty
       #- foot
-      #- zsh
+      - zsh
       - fish
       - fastfetch
       
