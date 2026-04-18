@@ -168,15 +168,6 @@ modules:
       - nm-connection-editor
       - kde-connect 
     
-    remove:
-      - gnome-shell
-      - gnome-session
-      - gnome-control-center
-      - gdm
-      - gnome-system-monitor
-      - nautilus
-      - mutter
-      
       # Display Manager (better for Hyprland than GDM)
       #- sddm
       #- sddm-breeze
