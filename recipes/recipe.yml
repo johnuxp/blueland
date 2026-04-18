@@ -173,7 +173,6 @@ modules:
       - gnome-session
       - gnome-control-center
       - gdm
-      - gnome-terminal
       - gnome-text-editor
       - gnome-system-monitor
       - nautilus
