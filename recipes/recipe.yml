@@ -172,7 +172,6 @@ modules:
       - gnome-shell
       - gnome-session
       - gnome-control-center
-      - gnome-software
       - gdm
       - gnome-terminal
       - gnome-text-editor
