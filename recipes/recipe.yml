@@ -4,7 +4,7 @@
 name: blueland
 description: Custom Bluefin base with Hyprland configuration alongside COSMIC
 base-image: ghcr.io/ublue-os/bluefin-dx
-image-version: stable
+image-version: 43
 
 modules:
   # Install comprehensive Hyprland ecosystem
@@ -173,7 +173,6 @@ modules:
       - gnome-session
       - gnome-control-center
       - gdm
-      - gnome-text-editor
       - gnome-system-monitor
       - nautilus
       - mutter
