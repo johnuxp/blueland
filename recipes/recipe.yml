@@ -2,8 +2,9 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/blue-build/cli/main/pkg/recipe-schema.json
 
 name: blueland
-description: Custom Bluefin with Hyprland configuration alongside GNOME
-base-image: ghcr.io/ublue-os/bluefin-dx
+description: Custom Bluefin base with Hyprland configuration alongside COSMIC
+#base-image: ghcr.io/ublue-os/bluefin-dx
+base-image: ghcr.io/ublue-os/base-dx
 image-version: 43
 
 modules:
@@ -11,6 +12,7 @@ modules:
   - type: rpm-ostree
     repos:
       - https://copr.fedorainfracloud.org/coprs/solopasha/hyprland/repo/fedora-%OS_VERSION%/solopasha-hyprland-fedora-%OS_VERSION%.repo
+      - https://copr.fedorainfracloud.org/coprs/ryanabx/cosmic-epoch/repo/fedora-%OS_VERSION%/ryanabx-cosmic-epoch-fedora-%OS_VERSION%.repo
       #- https://copr.fedorainfracloud.org/coprs/materka/wallust/repo/fedora-41/materka-wallust-fedora-41.repo  # ← Hardcoded to 41
     install:
       # Core Hyprland
@@ -22,6 +24,8 @@ modules:
       - hyprpicker
       - hyprcursor
       - hyprland-qt-support
+      - cosmic-desktop
+      - sddm
       #- hyprland-qtutils  # deprecated
       
       # Wayland essentials
@@ -164,7 +168,18 @@ modules:
       - ydotool
       - nm-connection-editor
       - kde-connect 
-       
+    
+    remove:
+      - gnome-shell
+      - gnome-session
+      - gnome-control-center
+      - gnome-software
+      - gdm
+      - gnome-terminal
+      - gnome-text-editor
+      - gnome-system-monitor
+      - nautilus
+      - mutter
       
       # Display Manager (better for Hyprland than GDM)
       #- sddm
@@ -209,10 +224,10 @@ modules:
   - type: systemd
     system:
       enabled:
-        - gdm.service
+        - sddm.service
         - bluetooth.service  
       disabled:
-        - sddm.service
+        - gdm.service
 
   # Add custom scripts
   - type: script
