@@ -3,9 +3,8 @@
 
 name: blueland
 description: Custom Bluefin base with Hyprland configuration alongside COSMIC
-#base-image: ghcr.io/ublue-os/bluefin-dx
-base-image: ghcr.io/ublue-os/base-dx
-image-version: latest
+base-image: ghcr.io/ublue-os/bluefin-dx
+image-version: stable
 
 modules:
   # Install comprehensive Hyprland ecosystem
