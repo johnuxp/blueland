@@ -3,7 +3,7 @@
 
 name: blueland
 description: Custom Bluefin base with Hyprland configuration alongside COSMIC
-base-image: ghcr.io/ublue-os/bluefin-dx
+base-image: ghcr.io/ublue-os/bluefin-dx-nvidia-open
 image-version: 43
 
 modules:
@@ -14,87 +14,18 @@ modules:
       - https://copr.fedorainfracloud.org/coprs/ryanabx/cosmic-epoch/repo/fedora-%OS_VERSION%/ryanabx-cosmic-epoch-fedora-%OS_VERSION%.repo
       #- https://copr.fedorainfracloud.org/coprs/materka/wallust/repo/fedora-41/materka-wallust-fedora-41.repo  # ← Hardcoded to 41
     install:
-      # Core Hyprland
-      - hyprland
-      - hyprland-devel
-      - hyprpaper
-      - hyprlock
-      - hypridle
-      - hyprpicker
-      - hyprcursor
-      - hyprland-qt-support
       - cosmic-desktop
-      - sddm
-      #- hyprland-qtutils  # deprecated
+      #- sddm
+      
       
       # Wayland essentials
-      - xdg-desktop-portal-hyprland
+     
       - xdg-desktop-portal-gtk
-      #- xwayland
+   
       - qt5-qtwayland
       - qt6-qtwayland
       
-      # Terminal & Shell
-      - kitty
-      #- foot
-      - zsh
-      - fish
-      - fastfetch
       
-      # Application Launchers & Menus
-      - rofi-wayland
-      - wofi
-      - fuzzel
-      
-      # Notifications
-      - dunst
-      - mako
-      - libnotify
-      - swaync
-      
-      # Status Bar
-      - waybar
-      
-      # Wallpaper Management
-      - swww
-      - swaybg
-      - mpvpaper
-      #- wallust
-      
-      # Screen Locking & Idle
-      #- swaylock  #removed because swaylock-effects is more feature-rich fork
-      - swaylock-effects
-      - swayidle
-      
-      # Screenshot & Screen Recording
-      - grim
-      - slurp
-      - swappy
-      - wf-recorder
-      #- wl-screenrec
-      
-      # Color & Theme Tools
-      #- pywal
-      #- python3-pywal
-      
-      # File Managers
-      #- nautilus
-      - thunar
-      - thunar-archive-plugin
-      - thunar-volman
-      - tumbler
-      - ffmpegthumbnailer
-      
-      # System Utilities
-      #- polkit-gnome
-      #- gnome-keyring
-      - brightnessctl
-      - light
-      - ddcutil
-      - wlr-randr
-      - wlsunset
-      - gammastep
-      #- emacs
       
       
       # Audio
@@ -112,25 +43,7 @@ modules:
       # System Monitoring
       - btop
       - htop
-      - nvtop
-      - cava
-      
-      # Clipboard Manager
-      - cliphist
-      - wl-clipboard
-      
-      # Logout Menu
-      - wlogout
-      
-      # Image Viewers
-      - imv
-      - swayimg
-      - viewnior
-      
-      # Media Player
-      #- mpv
-      #- vlc   #consider removing in favor of flatpak
-      
+  
       # Archive Tools
       - file-roller
       #- p7zip  #already included in bluefin, created dependency conflict, not nescessary
@@ -138,14 +51,6 @@ modules:
       - unrar
       
 
-      # GTK & Qt Theming
-      - nwg-look
-      - qt5ct
-      - qt6ct
-      - kvantum
-      - ImageMagick
-      #- bibata-cursor-themes
-      
       # Python dependencies for JaKooLit scripts
       - python3-pip
       - python3-pillow
@@ -168,27 +73,6 @@ modules:
       - nm-connection-editor
       - kde-connect 
     
-      # Display Manager (better for Hyprland than GDM)
-      #- sddm
-      #- sddm-breeze
-      #- sddm-kcm
-      #- qt5-qtgraphicaleffects
-      #- qt5-qtquickcontrols
-      #- qt5-qtquickcontrols2
-      #- qt5-qtsvg
-      #- lightdm #not wayland native afaik
-      #- lightdm-slick-greeter  
-      #- greetd
-      #- greetd-tuigreet
-
-    #remove:
-      #- gdm
-      #- helvum
-      #- 2
-      #- rygel-preferences
-      #- calf -seems to be dependency of some other program I installed above
-      #- easyeffects
-      #- foot
 
   - type: fonts
     fonts:
@@ -211,23 +95,7 @@ modules:
   - type: systemd
     system:
       enabled:
-        - sddm.service
+        - gdm.service
         - bluetooth.service  
       disabled:
-        - gdm.service
-
-  # Add custom scripts
-  - type: script
-    snippets:
-      - |
-        # Create Hyprland session file for GDM
-        mkdir -p /usr/share/wayland-sessions
-        cat > /usr/share/wayland-sessions/hyprland.desktop << 'EOF'
-        [Desktop Entry]
-        Name=Hyprland
-        Comment=An intelligent dynamic tiling Wayland compositor
-        Exec=Hyprland
-        Type=Application
-        DesktopNames=Hyprland
-        EOF
-        chmod 644 /usr/share/wayland-sessions/hyprland.desktop
+        - sddm.service
