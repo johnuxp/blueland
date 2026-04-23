@@ -214,7 +214,7 @@ modules:
         - gdm.service
         - bluetooth.service  
       disabled:
-        - sddm.service
+        #- sddm.service
 
   # Add custom scripts
   - type: script
