@@ -211,10 +211,10 @@ modules:
   - type: systemd
     system:
       enabled:
-        - sddm.service
+        - gdm.service
         - bluetooth.service  
       disabled:
-        - gdm.service
+        - sddm.service
 
   # Add custom scripts
   - type: script
