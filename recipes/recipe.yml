@@ -222,12 +222,6 @@ modules:
       - |
         # Create Hyprland session file for GDM
         mkdir -p /usr/share/wayland-sessions
-        cat > /usr/share/wayland-sessions/hyprland.desktop << 'EOF'
-        [Desktop Entry]
-        Name=Hyprland
-        Comment=An intelligent dynamic tiling Wayland compositor
-        Exec=Hyprland
-        Type=Application
-        DesktopNames=Hyprland
-        EOF
+        printf '[Desktop Entry]\nName=Hyprland\nComment=An intelligent dynamic tiling Wayland compositor\nExec=Hyprland\nType=Application\nDesktopNames=Hyprland\n' \
+          > /usr/share/wayland-sessions/hyprland.desktop
         chmod 644 /usr/share/wayland-sessions/hyprland.desktop
